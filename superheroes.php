@@ -65,6 +65,25 @@ $superheroes = [
 
 ?>
 
+<?php
+	$search = strip_tags($_POST['name']);
+	if ($search != "") {
+		$result = Search($search, $superheroes);
+		echo $result;
+		return;
+	}else{
+        return "Superhero not found";
+    }
+    
+	function Search($query, $heroes) {
+	  foreach ($heroes as $hero => $avngr) {
+		if ($avngr['name'] === $query || $avngr['alias'] === $query) {
+           return $avngr['name'] . " " . $avngr['alias'] . " " . $avngr['biography'];
+		}
+	}
+}
+?>
+
 <ul>
 <?php foreach ($superheroes as $superhero): ?>
   <li><?= $superhero['alias']; ?></li>
